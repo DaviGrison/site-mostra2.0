@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Pessoas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      background-color: #754CEC;
+      color: white;
+      padding: 2.5rem 1rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .title {
+      background-color: #00008b;
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 2rem;
+    }
+    .subtitle {
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+    .icon-button {
+      width: 24px;
+      height: 24px;
+    }
+    .top-right-buttons {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .top-right-buttons button {
+      background: none;
+      border: none;
+      font-size: 0.5rem;
+      cursor: pointer;
+      padding: 0;
+    }
+    nav {
+      background-color: #8d6af5;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0.5rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    #conteudo {
+      min-height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="title"><strong><em>AJUDE <br> A SERRA GAÚCHA</em></strong></div>
+    <div class="subtitle">Consulte informações sobre oportunidades <br> de voluntariado para seu caso.</div>
+    <div class="top-right-buttons">
+      <button><img src="imagens/search-interface-symbol.png" alt="busca" class="icon-button"></button>
+      <button><img src="imagens/menu.png" alt="menu" class="icon-button"></button>
+      <button><a href="cadastrovoluntarios.html" target="_self"><img src="imagens/user.png" alt="user" class="icon-button"></a></button>
+      <span>Crie sua conta<br> ou faça login</span>
+    </div>
+  </header>
+
+  <nav>
+    <a href="paginainicial.html">Página Inicial</a>
+    <a href="#" onclick="carregar('conteudos/abrigos.html')">Abrigos e Centros</a>
+    <a href="#" onclick="carregar('conteudos/campanhas.html')">Campanhas</a>
+    <a href="#" onclick="carregar('conteudos/voluntarios.html')">Voluntários</a>
+    <a href="ocorrenciamain.html">Ocorrências</a>
+    <a href="#" onclick="carregar('conteudos/desaparecidos.html')">Desaparecidos</a>
+  </nav>
+
+  <div id="conteudo"></div>
+
+  <script>
+    // Definir funções no escopo global
+    window.abrirModal = function(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        console.log("Abrindo modal: ", id);
+        modal.style.display = "flex";
+      } else {
+        console.error("Modal não encontrado: ", id);
+      }
+    };
+
+    window.fecharModal = function(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        console.log("Fechando modal: ", id);
+        modal.style.display = "none";
+      } else {
+        console.error("Modal não encontrado: ", id);
+      }
+    };
+
+    window.onclick = function(event) {
+      const modais = document.getElementsByClassName("modal");
+      for (let i = 0; i < modais.length; i++) {
+        if (event.target === modais[i]) {
+          modais[i].style.display = "none";
+        }
+      }
+    };
+
+    function carregar(pagina) {
+      console.log("Carregando página: ", pagina);
+      fetch(pagina)
+        .then(resp => {
+          if (!resp.ok) {
+            throw new Error(`Erro ao carregar ${pagina}: ${resp.statusText}`);
+          }
+          return resp.text();
+        })
+        .then(html => {
+          document.getElementById("conteudo").innerHTML = html;
+          console.log("Conteúdo carregado com sucesso: ", pagina);
+        })
+        .catch(err => {
+          document.getElementById("conteudo").innerHTML = `<p>Erro ao carregar conteúdo: ${err.message}</p>`;
+          console.error(err);
+        });
+    }
+
+    window.onload = function() {
+      carregar('conteudos/abrigos.html');
+    };
+  </script>
+</body>
+</html>

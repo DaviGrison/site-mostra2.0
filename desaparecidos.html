@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desaparecidos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    /* Grid de pessoas */
+    .container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 20px 40px;
+    }
+    .card {
+      background: #e6e6e6;
+      border-radius: 8px;
+      padding: 15px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 5px;
+      background: #333;
+    }
+    .card p {
+      margin: 3px 0;
+      font-size: 14px;
+    }
+
+    /* Paginação */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 20px;
+    }
+    .pagination a {
+      text-decoration: none;
+      color: #333;
+      background: #e6e6e6;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .pagination a.active {
+      background: #7b2ff7;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <!-- Cards de pessoas desaparecidas -->
+  <div class="container">
+    <div class="card">
+      <img src="gustavo teste.jfif" alt="Foto">
+      <div>
+        <p><b>Nome: Gustavo Rubbo Siqueira</b></p>
+        <p><b>Idade: 49</b></p>
+        <p><b>Telefone: (54) 98712-1232</b></p>
+        <p><b>Cidade: Caxias do Sul</b></p>
+        <p><b>Ultimo local visto: Kerwald </b></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="../imagens/" alt="Foto">
+      <div>
+        <p><b>Nome: Bruno Misturini</b></p>
+        <p><b>Idade: 28</b></p>
+        <p><b>Telefone: (54) 98976-9897</b></p>
+        <p><b>Cidade: Bento Gonçalves</b></p>
+        <p><b>Endereço: Colonia Vinhedos</b></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://via.placeholder.com/80" alt="Foto">
+      <div>
+        <p><b>Nome: Lucas da Silva Fogaça</b></p>
+        <p><b>Idade: 68</b></p>
+        <p><b>Telefone: (54) 00000-001</b></p>
+        <p><b>Cidade: Caxias do sul</b></p>
+        <p><b>Endereço: Baruks</b></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://via.placeholder.com/80" alt="Foto">
+      <div>
+        <p><b>Nome: Nilseu Paulo Tortelli</b></p>
+        <p><b>Idade: 52</b></p>
+        <p><b>Telefone: (54) 43452-7675</b></p>
+        <p><b>Cidade: Nova Prata</b></p>
+        <p><b>Endereço: CETEC</b></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://via.placeholder.com/80" alt="Foto">
+      <div>
+        <p><b>Nome: Guilherme da Silva Loro</b></p>
+        <p><b>Idade: 17</b></p>
+        <p><b>Telefone: (54) 98794-1738</b></p>
+        <p><b>Cidade: Caxias do Sul</b></p>
+        <p><b>Endereço: Uinversidade de Caxias do sul</b></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://via.placeholder.com/80" alt="Foto">
+      <div>
+        <p><b>Nome: Nasser Meneghetti Lanza</b></p>
+        <p><b>Idade: 28</b></p>
+        <p><b>Telefone: (54) 99976-1213</b></p>
+        <p><b>Cidade: Farroupilha</b></p>
+        <p><b>Endereço: Dumnas beach space</b></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Paginação -->
+  <div class="pagination">
+    <a href="#">« Previous</a>
+    <a href="#" class="active">1</a>
+    <a href="#">2</a>
+    <a href="#">3</a>
+    <a href="#">...</a>
+    <a href="#">67</a>
+    <a href="#">Next »</a>
+  </div>
+</body>
+</html>

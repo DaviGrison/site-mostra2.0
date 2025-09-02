@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campanhas e Divulgações</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    /* Grid de campanhas */
+    .container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      padding: 20px 40px;
+    }
+    .card {
+      background: #e6e6e6;
+      border-radius: 8px;
+      padding: 15px;
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+    }
+    .card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 6px;
+      object-fit: cover;
+      background: #ccc;
+    }
+    .card div {
+      flex: 1;
+    }
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 16px;
+      color: #222;
+    }
+    .card p {
+      margin: 4px 0;
+      font-size: 14px;
+    }
+    .card a {
+      display: inline-block;
+      margin-top: 8px;
+      color: #7b2ff7;
+      font-size: 14px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .card a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Cards de campanhas -->
+  <div class="container">
+    <div class="card">
+      <img src="../imagens/ADCAP.jfif" alt="Campanha ADCAP">
+      <div>
+        <h2>Campanha ADCAP</h2>
+        <p><b>Forma de ajuda:</b> Pix</p>
+        <p><b>Arrecadação total:</b> R$72.341,86</p>
+        <p><b>Meta:</b> R$150.000,00</p>
+        <p><b>Fim da campanha:</b> 14/07/2024</p>
+        <a href="#">Mais informações</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="../imagens/Projeto Adote um pet.jfif" alt="Projeto Adote um Pet">
+      <div>
+        <h2>Projeto Adote um pet</h2>
+        <p><b>Forma de ajuda:</b> Doação de ração; Adoção de animais</p>
+        <p><b>Arrecadação total:</b> R$35KG de ração; R$120,00</p>
+        <p><b>Meta:</b> 1000KG de ração; R$500,00</p>
+        <p><b>Fim da campanha:</b> 20/12/2024</p>
+        <a href="#">Mais informações</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="../imagens/cvc.jpg" alt="Campanha CVC">
+      <div>
+        <h2>Campanha CVC</h2>
+        <p><b>Forma de ajuda:</b> Doação de roupas, calçados, lenços, toalhas, cobertores</p>
+        <p><b>Arrecadação total:</b> Mais informações na página oficial</p>
+        <p><b>Fim da campanha:</b> 19/05/2024</p>
+        <a href="#">Mais informações</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="../imagens/De Belém para o RS.jfif" alt="Campanha De Belém para o RS">
+      <div>
+        <h2>Campanha: De Belém para o RS</h2>
+        <p><b>Forma de ajuda:</b> Pix; Doação de ração (cães e gatos); Materiais de limpeza</p>
+        <p><b>Arrecadação total:</b> Mais informações na página oficial</p>
+        <p><b>Fim da campanha:</b> 08/05/2024</p>
+        <a href="#">Mais informações</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

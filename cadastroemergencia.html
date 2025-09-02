@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastre seu abrigo</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fff;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .title {
+            font-size: 40px;
+            font-weight: bold;
+            font-style: italic;
+            color: #000;
+            margin-bottom: 40px;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            text-align: left;
+        }
+
+        .sublinhado{
+            border-bottom: 3px solid #754CEC;
+            padding-bottom: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .label {
+            font-size: 22px;
+            font-weight: bold;
+            color: #000;
+            display: block;
+            margin-bottom: 10px;
+            margin-right: 20px;
+            min-width: 260px;
+            text-align: left;
+        }
+
+        .form-group .options label {
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            margin-left: 30px; /* Desloca alternativas à direita */
+            margin-bottom: 0.5rem;
+        }
+
+        .input {
+            font-size: 16px;
+            font-style: italic;
+            color: #7F858D;
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .register-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 417px;
+            height: 59px;
+            background-color: #754CEC;
+            color: #fff;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .register-btn:hover {
+            background-color: #5c38c1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title"><span class="sublinhado">Cada</span>stre seu abrigo emergencial</h1>
+        <div class="form-group">
+            <label class="label">Capacidade máxima de pessoas</label>
+            <div class="options">
+                <label><input type="radio" name="capacidade" value="100-500"> 100-500 pessoas</label>
+                <label><input type="radio" name="capacidade" value="500-1000"> 500-1000 pessoas</label>
+                <label><input type="radio" name="capacidade" value="1000-1500"> 1000-1500 pessoas</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="label">Número de voluntários</label>
+            <div class="options">
+                <label><input type="radio" name="voluntarios" value="1-10"> 1-10 voluntários</label>
+                <label><input type="radio" name="voluntarios" value="11-30"> 11-30 voluntários</label>
+                <label><input type="radio" name="voluntarios" value="30"> +30 voluntários</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="label">Acessibilidade</label>
+            <div class="options">
+                <label><input type="radio" name="acessibilidade" value="sim"> Sim</label>
+                <label><input type="radio" name="acessibilidade" value="nao"> Não</label>
+            </div>
+        </div>
+        <a href="paginainicial.html"><button class="register-btn">Registrar</button></a>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const registerBtn = document.querySelector('.register-btn');
+            registerBtn.addEventListener('click', () => {
+                const capacidade = document.querySelector('input:nth-child(2)').value;
+                const voluntarios = document.querySelector('input:nth-child(4)').value;
+                const acessibilidade = document.querySelector('input:nth-child(6)').value;
+
+                if (capacidade && voluntarios && acessibilidade) {
+                    alert(`Abrigo registrado!\nCapacidade: ${capacidade}\nVoluntários: ${voluntarios}\nAcessibilidade: ${acessibilidade}`);
+                } else {
+                    alert('Por favor, preencha todos os campos.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

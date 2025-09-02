@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastre seu abrigo</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fff;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .title {
+            font-size: 40px;
+            font-weight: bold;
+            font-style: italic;
+            color: #000;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .sublinhado {
+            border-bottom: 3px solid #754CEC;
+            padding-bottom: 2px;
+        }
+
+        .left-section, .right-section {
+            padding: 20px;
+        }
+
+        .left-section {
+            margin-left: -50px; /* Move a seção da esquerda um pouco mais para a esquerda */
+        }
+
+        .left-section h2, .right-section h2 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .radio-group, .checkbox-group {
+            margin-bottom: 20px;
+        }
+
+        .radio-group input[type="radio"],
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .input {
+            font-size: 16px;
+            font-style: italic;
+            color: #7F858D;
+            padding: 10px;
+            width: 350px; /* Aumenta a largura para exibir o texto completo */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 5px;
+        }
+
+        .register-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 417px;
+            height: 59px;
+            background-color: #754CEC;
+            color: #fff;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .register-btn:hover {
+            background-color: #5c38c1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span class="title"><span class="sublinhado">Cada</span>stre seu abrigo animal</span></h1>
+        <div class="left-section">
+            <h2>Tipos de lar de animais</h2>
+            <div class="radio-group">
+                <input type="radio" id="cachorros" name="tipo-lar" value="Cachorros">
+                <label for="cachorros">Cachorros</label><br>
+                <input type="radio" id="gatos" name="tipo-lar" value="Gatos">
+                <label for="gatos">Gatos</label><br>
+                <input type="radio" id="diversos" name="tipo-lar" value="Diversos">
+                <label for="diversos">Diversos</label>
+            </div>
+            <h2>Condições do(s) animal(is)</h2>
+            <div class="radio-group">
+                <input type="radio" id="saudavel" name="condicao" value="Saudável">
+                <label for="saudavel">Saudável</label><br>
+                <input type="radio" id="ferido" name="condicao" value="Ferido">
+                <label for="ferido">Ferido</label><br>
+                <input type="radio" id="ambos" name="condicao" value="Ambos">
+                <label for="ambos">Ambos</label>
+            </div>
+        </div>
+        <div class="right-section">
+            <h2>Adoção</h2>
+            <input type="text" class="input" placeholder="Processo para a adoção de um animal"><br>
+            <h2>Equipe de voluntários</h2>
+            <input type="text" class="input" placeholder="Descrever voluntários para atender"><br>
+            <h2>Infraestrutura</h2>
+            <input type="text" class="input" placeholder="Ex: Pátio externo, área de recreação"><br>
+            <h2>Porte dos animais</h2>
+            <div class="checkbox-group">
+                <input type="checkbox" id="pequeno" name="porte" value="Pequeno">
+                <label for="pequeno">Pequeno</label><br>
+                <input type="checkbox" id="medio" name="porte" value="Médio">
+                <label for="medio">Médio</label><br>
+                <input type="checkbox" id="grande" name="porte" value="Grande">
+                <label for="grande">Grande</label>
+            </div>
+        </div>
+    </div>
+    <a href="paginainicial.html"><button class="register-btn">Registrar</button></a>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const registerBtn = document.querySelector('.register-btn');
+            registerBtn.addEventListener('click', () => {
+                const tipoLar = document.querySelector('input[name="tipo-lar"]:checked')?.value || '';
+                const condicao = document.querySelector('input[name="condicao"]:checked')?.value || '';
+                const adocao = document.querySelectorAll('.input')[0].value;
+                const voluntarios = document.querySelectorAll('.input')[1].value;
+                const infraestrutura = document.querySelectorAll('.input')[2].value;
+                const portes = Array.from(document.querySelectorAll('input[name="porte"]:checked'))
+                    .map(checkbox => checkbox.value)
+                    .join(', ') || '';
+
+                if (tipoLar && condicao && adocao && voluntarios && infraestrutura && portes) {
+                    alert(`Abrigo registrado!\nTipo de lar: ${tipoLar}\nCondição: ${condicao}\nAdoção: ${adocao}\nVoluntários: ${voluntarios}\nInfraestrutura: ${infraestrutura}\nPorte: ${portes}`);
+                } else {
+                    alert('Por favor, preencha todos os campos.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

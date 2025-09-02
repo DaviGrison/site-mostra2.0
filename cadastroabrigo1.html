@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastre seu abrigo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fff;
+            position: relative;
+        }
+        .container {
+            width: 600px;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 40px;
+            font-weight: bold;
+            font-style: italic;
+            margin: 0 0 90px 0;
+            text-align: center;
+            position: relative;
+        }
+        h1 .title {
+            border-bottom: 3px solid #754CEC;
+            padding-bottom: 2px;
+        }
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .left, .right {
+            width: 48%;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+            font-style: italic;
+            color: #7F858D;
+            background: #f9f9f9;
+        }
+        select {
+            appearance: none;
+            background: #f9f9f9 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="%23333"><path d="M7 10l-5-5 1.41-1.41L7 7.17l4.59-4.58L12 5l-5 5z"/></svg>') no-repeat right 8px center;
+            padding-right: 25px;
+        }
+        button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 417px;
+            height: 59px;
+            padding: 10px;
+            background-color: #754CEC;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span class="title">Cada</span>stre seu abrigo</h1>
+        <div class="form-group">
+            <div class="left">
+                <label>Nome do abrigo</label>
+                <input type="text" placeholder="Digite o nome do abrigo">
+                <label>Telefone</label>
+                <input type="text" placeholder="(xx) xxxxx-xxxx">
+            </div>
+            <div class="right">
+                <label>Tipo de abrigo</label>
+                <select id="tipo-abrigo">
+                    <option value="" disabled selected>Selecione seu tipo de abrigo</option>
+                    <option value="emergencial">Emergencial</option>
+                    <option value="residencial">Residencial</option>
+                    <option value="animais">Animais</option>
+                </select>
+                <label>Endereço</label>
+                <input type="text" placeholder="Digite seu endereço">
+            </div>
+        </div>
+        <button onclick="redirectToScreen()">Continuar</button>
+    </div>
+
+    <script>
+        function redirectToScreen() {
+            const tipoAbrigo = document.getElementById('tipo-abrigo').value;
+            if (!tipoAbrigo) {
+                alert('Por favor, selecione um tipo de abrigo.');
+                return;
+            }
+            if (tipoAbrigo === 'emergencial') {
+                window.location.href = 'cadastroemergencia.html';
+            } else if (tipoAbrigo === 'residencial') {
+                window.location.href = 'cadastroabrigo2.html';
+            } else if (tipoAbrigo === 'animais') {
+                window.location.href = 'cadastroanimais.html';
+            }
+        }
+    </script>
+</body>
+</html>
