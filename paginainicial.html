@@ -256,23 +256,15 @@ window.onclick = function(event) {
   }
 };
 
-function initMap() {
-  if (typeof google === 'undefined' || !google.maps) {
-    console.error('Google Maps API não foi carregada corretamente.');
-    return;
-  }
-
-  const mapElement = document.getElementById('map');
-  if (mapElement) {
-    map = new google.maps.Map(mapElement, {
-      center: { lat: -29.1678, lng: -51.1794 }, // Centro em Caxias do Sul, RS
-      zoom: 13
-    });
-    addFilterEvents(); // Reaplicar eventos dos filtros
-  } else {
-    console.error('Elemento #map não encontrado.');
-  }
-}
+    function initMap() {
+      if (document.getElementById('map')) {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -29.1678, lng: -51.1794}, // Centro em Caxias do Sul, RS
+          zoom: 13
+        });
+        addFilterEvents(); // Reaplicar eventos dos filtros
+      }
+    }
 
 function addMarkers(positions, markersArray, modalIds) {
   if (!map) return;
@@ -297,50 +289,51 @@ function removeMarkers(markersArray) {
   markersArray.length = 0;
 }
 
-function addFilterEvents() {
-  const abrigo = document.getElementById('filter-abrigo');
-  if (abrigo) {
-    abrigo.addEventListener('click', () => {
-      removeMarkers(markersAbrigo);
-      removeMarkers(markersTipoAbrigo);
-      removeMarkers(markersCentroAnimais);
-      const positions = [
-        { lat: -29.168, lng: -51.179, title: "Abrigo 1" },
-        { lat: -29.160, lng: -51.170, title: "Abrigo 2" }
-      ];
-      const modalIds = ['modal1', 'modal2'];
-      addMarkers(positions, markersAbrigo, modalIds);
-    });
-  }
+    function addFilterEvents() {
+      const abrigo = document.getElementById('filter-abrigo');
+      if (abrigo) {
+        abrigo.addEventListener('click', () => {
+          if (markersAbrigo.length > 0) {
+            removeMarkers(markersAbrigo);
+          } else {
+            const positions = [
+              {lat: -29.168, lng: -51.179},
+              {lat: -29.160, lng: -51.170}
+            ];
+            addMarkers(positions, markersAbrigo);
+          }
+        });
+      }
 
-  const tipoAbrigo = document.getElementById('filter-tipo-abrigo');
-  if (tipoAbrigo) {
-    tipoAbrigo.addEventListener('click', () => {
-      removeMarkers(markersAbrigo);
-      removeMarkers(markersTipoAbrigo);
-      removeMarkers(markersCentroAnimais);
-      const positions = [
-        { lat: -29.1398895, lng: -51.1839664, title: "Tipo de Abrigo" }
-      ];
-      const modalIds = ['modal3'];
-      addMarkers(positions, markersTipoAbrigo, modalIds);
-    });
-  }
+      const tipoAbrigo = document.getElementById('filter-tipo-abrigo');
+      if (tipoAbrigo) {
+        tipoAbrigo.addEventListener('click', () => {
+          if (markersTipoAbrigo.length > 0) {
+            removeMarkers(markersTipoAbrigo);
+          } else {
+            const positions = [
+              {lat: -29.170, lng: -51.180},
+              {lat: -29.165, lng: -51.175}
+            ];
+            addMarkers(positions, markersTipoAbrigo);
+          }
+        });
+      }
 
-  const centroAnimais = document.getElementById('filter-centro-animais');
-  if (centroAnimais) {
-    centroAnimais.addEventListener('click', () => {
-      removeMarkers(markersAbrigo);
-      removeMarkers(markersTipoAbrigo);
-      removeMarkers(markersCentroAnimais);
-      const positions = [
-        { lat: -29.175, lng: -51.185, title: "Centro de Animais 1" },
-        { lat: -29.155, lng: -51.165, title: "Centro de Animais 2" }
-      ];
-      const modalIds = ['modal4', 'modal5'];
-      addMarkers(positions, markersCentroAnimais, modalIds);
-    });
-  }
+      const centroAnimais = document.getElementById('filter-centro-animais');
+      if (centroAnimais) {
+        centroAnimais.addEventListener('click', () => {
+          if (markersCentroAnimais.length > 0) {
+            removeMarkers(markersCentroAnimais);
+          } else {
+            const positions = [
+              {lat: -29.175, lng: -51.185},
+              {lat: -29.155, lng: -51.165}
+            ];
+            addMarkers(positions, markersCentroAnimais);
+          }
+        });
+      }
 
   const clearButton = document.querySelector('.clear-button');
   if (clearButton) {
@@ -352,30 +345,33 @@ function addFilterEvents() {
   }
 }
 
-function carregar(pagina) {
-  console.log("Carregando página: ", pagina);
-  fetch(pagina)
-    .then(resp => {
-      if (!resp.ok) {
-        throw new Error(`Erro ao carregar ${pagina}: ${resp.statusText}`);
-      }
-      return resp.text();
-    })
-    .then(html => {
-      const conteudo = document.getElementById("conteudo");
-      conteudo.innerHTML = html;
-      console.log("Conteúdo carregado com sucesso: ", pagina);
-      setTimeout(() => {
-        if (document.getElementById('map')) {
-          initMap();
-        }
-      }, 0);
-    })
-    .catch(err => {
-      document.getElementById("conteudo").innerHTML = "<p>Erro ao carregar conteúdo: " + err.message + "</p>";
-      console.error(err);
-    });
-}
+    function carregar(pagina) {
+      console.log("Carregando página: ", pagina);
+      fetch(pagina)
+        .then(resp => {
+          if (!resp.ok) {
+            throw new Error(`Erro ao carregar ${pagina}: ${resp.statusText}`);
+          }
+          return resp.text();
+        })
+        .then(html => {
+          document.getElementById("conteudo").innerHTML = html;
+          console.log("Conteúdo carregado com sucesso: ", pagina);
+          // Reinicializar o mapa se o elemento #map estiver presente
+          if (document.getElementById('map')) {
+            initMap();
+          }
+        })
+        .catch(err => {
+          document.getElementById("conteudo").innerHTML = "<p>Erro ao carregar conteúdo: " + err.message + "</p>";
+          console.error(err);
+        });
+    }
+
+    // Inicializar o mapa ao carregar a página
+    window.onload = function() {
+      initMap();
+    };
   </script>
 </body>
 </html>
