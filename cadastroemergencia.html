@@ -87,6 +87,13 @@
         .register-btn:hover {
             background-color: #5c38c1;
         }
+        .cinza {
+            font-size: 14px;
+            color: #7F858D;
+            display: inline;
+            margin-left: 10px;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
@@ -109,10 +116,19 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="label">Acessibilidade</label>
+            <label class="label">Acessibilidade<div class="cinza">(para idosos,PCDs, crianças)</div></label>
             <div class="options">
                 <label><input type="radio" name="acessibilidade" value="sim"> Sim</label>
                 <label><input type="radio" name="acessibilidade" value="nao"> Não</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="label">Tipos de recursos</label>
+            <div class="options">
+                <label><input type="checkbox" name="recursos" value="alimentos">Alimentos</label>
+                <label><input type="checkbox" name="recursos" value="higiene">Produtos de higiene </label>
+                <label><input type="checkbox" name="recursos" value="medicamentos">Medicamentos</label>
+                <label><input type="checkbox" name="recursos" value="roupas">Roupas</label>
             </div>
         </div>
         <a href="paginainicial.html"><button class="register-btn">Registrar</button></a>

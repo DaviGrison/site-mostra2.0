@@ -89,6 +89,36 @@
         .register-btn:hover {
             background-color: #5c38c1;
         }
+
+        .profile-pic {
+      width: 80px;
+      height: 80px;
+      background-color: #ccc;
+      border-radius: 50%;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .profile-pic img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .profile-pic.active img {
+      display: block;
+    }
+
+    .profile-pic span {
+      color: #666;
+      font-size: 14px;
+      text-align: center;
+    }
     </style>
 </head>
 <body>
@@ -112,11 +142,18 @@
                 <label for="ferido">Ferido</label><br>
                 <input type="radio" id="ambos" name="condicao" value="Ambos">
                 <label for="ambos">Ambos</label>
+                <h2>Adoção</h2>
+                <input type="text" class="input" placeholder="Processo para a adoção de um animal"><br>
             </div>
         </div>
         <div class="right-section">
-            <h2>Adoção</h2>
-            <input type="text" class="input" placeholder="Processo para a adoção de um animal"><br>
+            <div class="extra-section">
+            <strong><label>Foto:</label></strong>
+            <label for="photo-upload" class="profile-pic" id="photo-circle">
+                <img id="photo-preview" src="" alt="Pré-visualização da foto">
+                <span id="photo-text">Adicionar Foto</span>
+            </label>
+            <input type="file" id="photo-upload" accept="image/*" style="display:none">
             <h2>Equipe de voluntários</h2>
             <input type="text" class="input" placeholder="Descrever voluntários para atender"><br>
             <h2>Infraestrutura</h2>

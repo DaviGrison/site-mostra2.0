@@ -37,7 +37,6 @@
     .left, .right {
       width: 48%;
     }
-
     .section-title {
       font-weight: bold;
       margin-top: 25px;
@@ -212,11 +211,41 @@
     .input-italico {
       font-style: italic;
     }
+
+    .profile-pic {
+      width: 80px;
+      height: 80px;
+      background-color: #ccc;
+      border-radius: 50%;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .profile-pic img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .profile-pic.active img {
+      display: block;
+    }
+
+    .profile-pic span {
+      color: #666;
+      font-size: 14px;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
 
-  <h1><span class="highlight">Cada</span>stre seu abrigo</h1>
+  <h1><span class="highlight">Cada</span>stre seu abrigo residencial</h1>
 
   <div class="container">
     <div class="left">
@@ -286,6 +315,14 @@
     </div>
 
     <div class="right">
+      <div class="extra-section">
+      <strong><label>Foto:</label></strong>
+      <label for="photo-upload" class="profile-pic" id="photo-circle">
+        <img id="photo-preview" src="" alt="Pré-visualização da foto">
+        <span id="photo-text">Adicionar Foto</span>
+      </label>
+      <input type="file" id="photo-upload" accept="image/*" style="display:none">
+      
       <div class="section-title">Destaques</div>
       <input type="text" class="input-italico" placeholder="Ex: Ideal para famílias, espaçoso..." id="destaques">
 
@@ -382,6 +419,24 @@
       document.getElementById("mensagem").innerText = "Abrigo cadastrado!";
       console.log("Dados:", data);
     }
+
+    const photoUpload = document.getElementById('photo-upload');
+    const photoCircle = document.getElementById('photo-circle');
+    const photoPreview = document.getElementById('photo-preview');
+    const photoText = document.getElementById('photo-text');
+
+    photoUpload.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          photoPreview.src = e.target.result;
+          photoCircle.classList.add('active');
+          photoText.style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
   </script>
 
 </body>

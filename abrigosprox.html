@@ -150,6 +150,15 @@
     window.onload = function() {
       carregar('conteudos/abrigos.html');
     };
+
+    const params = new URLSearchParams(window.location.search);
+    const modalId = params.get('id');
+    if (modalId) {
+      const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.style.display = "flex";
+    }
+  }
   </script>
 </body>
 </html>

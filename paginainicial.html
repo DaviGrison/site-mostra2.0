@@ -169,7 +169,7 @@
           <div class="cinza"><span>Todos</span></div>
           <img src="imagens/arrow-down-cinza.png" alt="seta">
         </div>
-        <span>Filtrar por abrigo</span>
+        <span>Filtrar por abrigo emergencial</span>
         <div class="opcao-com-seta" id="filter-abrigo">
           <span>Todos</span>
           <img src="imagens/arrow-down-cinza.png" alt="seta">
@@ -179,7 +179,7 @@
           <div class="cinza"><span>Todos</span></div>
           <img src="imagens/arrow-down-cinza.png" alt="seta">
         </div>
-        <span>Filtrar por tipo de abrigo</span>
+        <span>Filtrar por abrigo residencial</span>
         <div class="opcao-com-seta" id="filter-tipo-abrigo">
           <span>Todos</span>
           <img src="imagens/arrow-down-cinza.png" alt="seta">
@@ -222,150 +222,160 @@
 
   <script>
     let map;
-    let markersAbrigo = [];
-    let markersTipoAbrigo = [];
-    let markersCentroAnimais = [];
+let markersAbrigo = [];
+let markersTipoAbrigo = [];
+let markersCentroAnimais = [];
 
-    // Definir funções no escopo global para modais
-    window.abrirModal = function(id) {
-      const modal = document.getElementById(id);
-      if (modal) {
-        console.log("Abrindo modal: ", id);
-        modal.style.display = "flex";
-      } else {
-        console.error("Modal não encontrado: ", id);
-      }
-    };
+// Definir funções no escopo global para modais
+window.abrirModal = function(id) {
+  const modal = document.getElementById(id);
+  if (modal) {
+    console.log("Abrindo modal: ", id);
+    modal.style.display = "flex";
+  } else {
+    console.error("Modal não encontrado: ", id);
+  }
+};
 
-    window.fecharModal = function(id) {
-      const modal = document.getElementById(id);
-      if (modal) {
-        console.log("Fechando modal: ", id);
-        modal.style.display = "none";
-      } else {
-        console.error("Modal não encontrado: ", id);
-      }
-    };
+window.fecharModal = function(id) {
+  const modal = document.getElementById(id);
+  if (modal) {
+    console.log("Fechando modal: ", id);
+    modal.style.display = "none";
+  } else {
+    console.error("Modal não encontrado: ", id);
+  }
+};
 
-    window.onclick = function(event) {
-      const modais = document.getElementsByClassName("modal");
-      for (let i = 0; i < modais.length; i++) {
-        if (event.target === modais[i]) {
-          modais[i].style.display = "none";
-        }
-      }
-    };
-
-    function initMap() {
-      if (document.getElementById('map')) {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -29.1678, lng: -51.1794}, // Centro em Caxias do Sul, RS
-          zoom: 13
-        });
-        addFilterEvents(); // Reaplicar eventos dos filtros
-      }
+window.onclick = function(event) {
+  const modais = document.getElementsByClassName("modal");
+  for (let i = 0; i < modais.length; i++) {
+    if (event.target === modais[i]) {
+      modais[i].style.display = "none";
     }
+  }
+};
 
-    function addMarkers(positions, markersArray) {
-      if (!map) return;
-      positions.forEach(pos => {
-        let marker = new google.maps.Marker({
-          position: pos,
-          map: map,
-          title: 'Abrigo/Centro'
-        });
-        markersArray.push(marker);
+function initMap() {
+  if (typeof google === 'undefined' || !google.maps) {
+    console.error('Google Maps API não foi carregada corretamente.');
+    return;
+  }
+
+  const mapElement = document.getElementById('map');
+  if (mapElement) {
+    map = new google.maps.Map(mapElement, {
+      center: { lat: -29.1678, lng: -51.1794 }, // Centro em Caxias do Sul, RS
+      zoom: 13
+    });
+    addFilterEvents(); // Reaplicar eventos dos filtros
+  } else {
+    console.error('Elemento #map não encontrado.');
+  }
+}
+
+function addMarkers(positions, markersArray, modalIds) {
+  if (!map) return;
+  positions.forEach((pos, index) => {
+    let marker = new google.maps.Marker({
+      position: pos,
+      map: map,
+      title: pos.title || 'Abrigo/Centro'
+    });
+    // Adicionar evento de clique para redirecionar para abrigos.html com o ID do modal
+    if (modalIds && modalIds[index]) {
+      marker.addListener('click', () => {
+        window.location.href = `abrigosprox.html?id=${modalIds[index]}`;
       });
     }
+    markersArray.push(marker);
+  });
+}
 
-    function removeMarkers(markersArray) {
-      markersArray.forEach(m => m.setMap(null));
-      markersArray.length = 0;
-    }
+function removeMarkers(markersArray) {
+  markersArray.forEach(m => m.setMap(null));
+  markersArray.length = 0;
+}
 
-    function addFilterEvents() {
-      const abrigo = document.getElementById('filter-abrigo');
-      if (abrigo) {
-        abrigo.addEventListener('click', () => {
-          if (markersAbrigo.length > 0) {
-            removeMarkers(markersAbrigo);
-          } else {
-            const positions = [
-              {lat: -29.168, lng: -51.179},
-              {lat: -29.160, lng: -51.170}
-            ];
-            addMarkers(positions, markersAbrigo);
-          }
-        });
+function addFilterEvents() {
+  const abrigo = document.getElementById('filter-abrigo');
+  if (abrigo) {
+    abrigo.addEventListener('click', () => {
+      removeMarkers(markersAbrigo);
+      removeMarkers(markersTipoAbrigo);
+      removeMarkers(markersCentroAnimais);
+      const positions = [
+        { lat: -29.168, lng: -51.179, title: "Abrigo 1" },
+        { lat: -29.160, lng: -51.170, title: "Abrigo 2" }
+      ];
+      const modalIds = ['modal1', 'modal2'];
+      addMarkers(positions, markersAbrigo, modalIds);
+    });
+  }
+
+  const tipoAbrigo = document.getElementById('filter-tipo-abrigo');
+  if (tipoAbrigo) {
+    tipoAbrigo.addEventListener('click', () => {
+      removeMarkers(markersAbrigo);
+      removeMarkers(markersTipoAbrigo);
+      removeMarkers(markersCentroAnimais);
+      const positions = [
+        { lat: -29.1398895, lng: -51.1839664, title: "Tipo de Abrigo" }
+      ];
+      const modalIds = ['modal3'];
+      addMarkers(positions, markersTipoAbrigo, modalIds);
+    });
+  }
+
+  const centroAnimais = document.getElementById('filter-centro-animais');
+  if (centroAnimais) {
+    centroAnimais.addEventListener('click', () => {
+      removeMarkers(markersAbrigo);
+      removeMarkers(markersTipoAbrigo);
+      removeMarkers(markersCentroAnimais);
+      const positions = [
+        { lat: -29.175, lng: -51.185, title: "Centro de Animais 1" },
+        { lat: -29.155, lng: -51.165, title: "Centro de Animais 2" }
+      ];
+      const modalIds = ['modal4', 'modal5'];
+      addMarkers(positions, markersCentroAnimais, modalIds);
+    });
+  }
+
+  const clearButton = document.querySelector('.clear-button');
+  if (clearButton) {
+    clearButton.addEventListener('click', () => {
+      removeMarkers(markersAbrigo);
+      removeMarkers(markersTipoAbrigo);
+      removeMarkers(markersCentroAnimais);
+    });
+  }
+}
+
+function carregar(pagina) {
+  console.log("Carregando página: ", pagina);
+  fetch(pagina)
+    .then(resp => {
+      if (!resp.ok) {
+        throw new Error(`Erro ao carregar ${pagina}: ${resp.statusText}`);
       }
-
-      const tipoAbrigo = document.getElementById('filter-tipo-abrigo');
-      if (tipoAbrigo) {
-        tipoAbrigo.addEventListener('click', () => {
-          if (markersTipoAbrigo.length > 0) {
-            removeMarkers(markersTipoAbrigo);
-          } else {
-            const positions = [
-              {lat: -29.170, lng: -51.180},
-              {lat: -29.165, lng: -51.175}
-            ];
-            addMarkers(positions, markersTipoAbrigo);
-          }
-        });
-      }
-
-      const centroAnimais = document.getElementById('filter-centro-animais');
-      if (centroAnimais) {
-        centroAnimais.addEventListener('click', () => {
-          if (markersCentroAnimais.length > 0) {
-            removeMarkers(markersCentroAnimais);
-          } else {
-            const positions = [
-              {lat: -29.175, lng: -51.185},
-              {lat: -29.155, lng: -51.165}
-            ];
-            addMarkers(positions, markersCentroAnimais);
-          }
-        });
-      }
-
-      const clearButton = document.querySelector('.clear-button');
-      if (clearButton) {
-        clearButton.addEventListener('click', () => {
-          removeMarkers(markersAbrigo);
-          removeMarkers(markersTipoAbrigo);
-          removeMarkers(markersCentroAnimais);
-        });
-      }
-    }
-
-    function carregar(pagina) {
-      console.log("Carregando página: ", pagina);
-      fetch(pagina)
-        .then(resp => {
-          if (!resp.ok) {
-            throw new Error(`Erro ao carregar ${pagina}: ${resp.statusText}`);
-          }
-          return resp.text();
-        })
-        .then(html => {
-          document.getElementById("conteudo").innerHTML = html;
-          console.log("Conteúdo carregado com sucesso: ", pagina);
-          // Reinicializar o mapa se o elemento #map estiver presente
-          if (document.getElementById('map')) {
-            initMap();
-          }
-        })
-        .catch(err => {
-          document.getElementById("conteudo").innerHTML = "<p>Erro ao carregar conteúdo: " + err.message + "</p>";
-          console.error(err);
-        });
-    }
-
-    // Inicializar o mapa ao carregar a página
-    window.onload = function() {
-      initMap();
-    };
+      return resp.text();
+    })
+    .then(html => {
+      const conteudo = document.getElementById("conteudo");
+      conteudo.innerHTML = html;
+      console.log("Conteúdo carregado com sucesso: ", pagina);
+      setTimeout(() => {
+        if (document.getElementById('map')) {
+          initMap();
+        }
+      }, 0);
+    })
+    .catch(err => {
+      document.getElementById("conteudo").innerHTML = "<p>Erro ao carregar conteúdo: " + err.message + "</p>";
+      console.error(err);
+    });
+}
   </script>
 </body>
 </html>
