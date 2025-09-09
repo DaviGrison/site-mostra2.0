@@ -119,14 +119,25 @@
       }
     };
 
-    window.onclick = function(event) {
-      const modais = document.getElementsByClassName("modal");
-      for (let i = 0; i < modais.length; i++) {
-        if (event.target === modais[i]) {
-          modais[i].style.display = "none";
-        }
+    // Delegação de eventos para cliques
+    document.addEventListener('click', function(event) {
+      // Abrir modal ao clicar no botão
+      if (event.target.matches('.abrigos-container .card button')) {
+        const modalId = event.target.getAttribute('data-modal');
+        abrirModal(modalId);
       }
-    };
+
+      // Fechar modal ao clicar no botão de fechar
+      if (event.target.matches('.close-btn')) {
+        const modalId = event.target.closest('.modal').id;
+        fecharModal(modalId);
+      }
+
+      // Fechar modal ao clicar fora
+      if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+      }
+    });
 
     function carregar(pagina) {
       console.log("Carregando página: ", pagina);
@@ -150,15 +161,6 @@
     window.onload = function() {
       carregar('conteudos/abrigos.html');
     };
-
-    const params = new URLSearchParams(window.location.search);
-    const modalId = params.get('id');
-    if (modalId) {
-      const modal = document.getElementById(modalId);
-    if (modal) {
-      modal.style.display = "flex";
-    }
-  }
   </script>
 </body>
 </html>
